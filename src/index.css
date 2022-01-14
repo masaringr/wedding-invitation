@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&family=Lusitana&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .bg-dot {
+    background-color: #f0eef3;
+    /* opacity: 0.8; */
+    /* background-image: url("http://midone-vue.left4code.com/dist/images/preview.png"); */
+
+    background-image: radial-gradient(#b8b3bf 1px, #f0eef3 1px);
+    background-size: 20px 20px;
+  }
+  .glass-light {
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  .glass-dark {
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+}
