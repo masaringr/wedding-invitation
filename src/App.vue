@@ -102,19 +102,9 @@
               </div>
             </transition>
           </div>
-          <div class="md:pl-8 w-full md:border-l-[1.5px] border-white/90">
+          <div class="h-48 md:h-auto md:pl-8 w-full md:border-l-[1.5px] border-white/90 relative">
             <transition appear @before-enter="fromBottom" @enter="toCenter">
-              <div class="flex flex-col h-full justify-center items-center">
-                <div class="p-2 border-[3px] border-rose-500 mb-2">
-                  <h4
-                    class="uppercase whitespace-nowrap font-inter text-base leading-none font-semibold text-rose-500"
-                  >space available</h4>
-                </div>
-                <p class="text-center md:text-xs text-sm text-slate-500/70 mb-2">
-                  Ga deng, becanda. ini karena ga tau mau diisi apa
-                  <br />
-                  <span class="text-base block">&#128513;</span>
-                </p>
+              <div class="flex flex-col h-full justify-center items-center relative z-20">
                 <p class="text-center md:text-xs text-sm text-slate-500/70">
                   Ditunggu kehadirannya, teman-teman.
                   <span
@@ -123,6 +113,9 @@
                 </p>
               </div>
             </transition>
+            <div class="absolute top-0 w-full h-full">
+              <canvas id="confetti" class="w-full h-full"></canvas>
+            </div>
           </div>
         </div>
       </div>
@@ -132,6 +125,31 @@
 <script setup>
 import { createToaster } from "@meforma/vue-toaster";
 import gsap from "gsap"
+import confetti from "https://cdn.skypack.dev/canvas-confetti@1";
+import { onMounted } from "vue";
+
+const randomDirection = (min, max) => {
+  return Math.random() * (max - min) + min;
+}
+
+const showConfetti = () => {
+  const canvas = document.getElementById('confetti');
+
+  canvas.confetti = canvas.confetti || confetti.create(canvas, { resize: true });
+
+  canvas.confetti({
+    angle: randomDirection(55, 125),
+    spread: randomDirection(50, 70),
+    particleCount: randomDirection(50, 100),
+    origin: { y: 1.2 }
+  });
+}
+
+const runConfetti = onMounted(() => {
+  setInterval(() => {
+    showConfetti()
+  }, 3000);
+})
 
 const beforeEnterImg1 = (el) => {
   el.style.opacity = 0
