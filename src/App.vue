@@ -108,7 +108,7 @@
                 <p class="text-center md:text-xs text-sm text-slate-500/70">
                   Ditunggu kehadirannya, teman-teman.
                   <span
-                    class="text-base block"
+                    class="text-xl block mt-2"
                   >&#128588;&#128588;&#129395;</span>
                 </p>
               </div>
