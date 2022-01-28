@@ -8,15 +8,16 @@
       >
         <transition appear @before-enter="beforeEnterImg1" @enter="enterImg1">
           <div class="w-96 hidden md:block">
-            <vue-load-image>
-              <template v-slot:image>
-                <img class="drop-shadow w-full h-auto" :src="banner" alt="ari & fareta" />
-              </template>
-              <template v-slot:preloader>
-                <img src="/image-loader.gif" />
-              </template>
-              <template v-slot:error>Image load fails</template>
-            </vue-load-image>
+            <div v-if="!isLoaded" class="animate-pulse">
+              <div class="w-96 h-[500px] bg-slate-200 rounded-xl"></div>
+            </div>
+            <img
+              v-show="isLoaded"
+              class="drop-shadow w-full h-auto"
+              :src="banner"
+              alt="ari & fareta"
+              @load="onImgLoad"
+            />
           </div>
         </transition>
 
@@ -27,15 +28,18 @@
             >ari nugroho</h4>
           </transition>
           <transition appear @before-enter="beforeEnterImg1" @enter="enterImg1">
-            <vue-load-image>
-              <template v-slot:image>
-                <img class="drop-shadow w-full h-auto" :src="banner" alt="ari & fareta" />
-              </template>
-              <template v-slot:preloader>
-                <img src="/image-loader.gif" />
-              </template>
-              <template v-slot:error>Image load fails</template>
-            </vue-load-image>
+            <div>
+              <div v-if="!isLoaded" class="animate-pulse">
+                <div class="w-96 h-[500px] bg-slate-200 rounded-xl"></div>
+              </div>
+              <img
+                v-show="isLoaded"
+                class="drop-shadow w-full h-auto"
+                :src="banner"
+                alt="ari & fareta"
+                @load="onImgLoad"
+              />
+            </div>
           </transition>
           <transition appear @before-enter="fromRight" @enter="toCenter">
             <h4
@@ -142,11 +146,16 @@
 import { createToaster } from "@meforma/vue-toaster";
 import gsap from "gsap"
 import confetti from "https://cdn.skypack.dev/canvas-confetti@1";
-import { onMounted } from "vue";
-import VueLoadImage from 'vue-load-image';
+import { onMounted, ref } from "vue";
 
 const randomDirection = (min, max) => {
   return Math.random() * (max - min) + min;
+}
+
+const isLoaded = ref(false)
+
+const onImgLoad = () => {
+  isLoaded.value = true
 }
 
 const banner = '/banner.webp'
