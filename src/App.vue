@@ -8,7 +8,15 @@
       >
         <transition appear @before-enter="beforeEnterImg1" @enter="enterImg1">
           <div class="w-96 hidden md:block">
-            <img class="drop-shadow w-full h-auto" src="/banner.webp" alt="ari & fareta" />
+            <vue-load-image>
+              <template v-slot:image>
+                <img class="drop-shadow w-full h-auto" :src="banner" alt="ari & fareta" />
+              </template>
+              <template v-slot:preloader>
+                <img src="/image-loader.gif" />
+              </template>
+              <template v-slot:error>Image load fails</template>
+            </vue-load-image>
           </div>
         </transition>
 
@@ -19,7 +27,15 @@
             >ari nugroho</h4>
           </transition>
           <transition appear @before-enter="beforeEnterImg1" @enter="enterImg1">
-            <img class="drop-shadow w-full h-auto" src="/banner.webp" alt="ari & fareta" />
+            <vue-load-image>
+              <template v-slot:image>
+                <img class="drop-shadow w-full h-auto" :src="banner" alt="ari & fareta" />
+              </template>
+              <template v-slot:preloader>
+                <img src="/image-loader.gif" />
+              </template>
+              <template v-slot:error>Image load fails</template>
+            </vue-load-image>
           </transition>
           <transition appear @before-enter="fromRight" @enter="toCenter">
             <h4
@@ -127,10 +143,13 @@ import { createToaster } from "@meforma/vue-toaster";
 import gsap from "gsap"
 import confetti from "https://cdn.skypack.dev/canvas-confetti@1";
 import { onMounted } from "vue";
+import VueLoadImage from 'vue-load-image';
 
 const randomDirection = (min, max) => {
   return Math.random() * (max - min) + min;
 }
+
+const banner = '/banner.webp'
 
 const showConfetti = () => {
   const canvas = document.getElementById('confetti');
